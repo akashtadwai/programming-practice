@@ -1,5 +1,5 @@
 tcs_files/*
-**/*.out
-**/*.tcs
-**/*.bin
-**/*.vscode
+**/**/*.out
+**/**/*.tcs
+**/**/*.bin
+**/**/*.vscode
