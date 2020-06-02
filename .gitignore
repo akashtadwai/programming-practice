@@ -2,3 +2,4 @@ tcs_files/*
 **/*.out
 **/*.tcs
 **/*.bin
+**/*.vscode
