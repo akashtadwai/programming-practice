@@ -27,7 +27,7 @@ void init() {
   dp[1]=abs(h[1]-h[0]);
   fr(i,2,n) dp[i]=min(dp[i-1]+abs(h[i]-h[i-1]),dp[i-2]+abs(h[i-2]-h[i]));
   cout<<dp[n-1]<<endl;*/
-  for (int i = 0; i < n; i++) { // dp[j] - min total cost incurred to reach step j 
+  for (int i = 0; i < n; i++) { // dp[j] - min total cost incurred to reach step j
     for (int j : {i + 1, i + 2}) {
       if (j < n)
         dp[j] = min(dp[j], dp[i] + abs(h[i] - h[j]));

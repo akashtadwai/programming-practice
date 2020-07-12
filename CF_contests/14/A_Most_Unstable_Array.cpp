@@ -14,6 +14,7 @@ typedef std::pair<int, int> ipair;
 #define vvi vector<vector<int>>
 #define vp vector<ipair>
 #define mp make_pair
+#define pp pair<int,int>
 #define mod 1000000007
 #define IOS                                                                    \
   std::ios::sync_with_stdio(false);                                            \

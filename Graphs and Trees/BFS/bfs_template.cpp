@@ -21,6 +21,7 @@ void bfs() {
         q.push(u);
         d[u] = d[v] + 1;
         p[u] = v;
+
       }
     }
   }

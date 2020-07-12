@@ -9,38 +9,32 @@ typedef std::pair<int, int> ipair;
 #define fr(i, j, a) for (int i = j; i < a; i++)
 #define cnt_ones(x) __builtin_popcount(x)
 #define all(x) x.begin(), x.end()
-#define sz size()
 #define vi vector<int>
-#define vvi vector<vector<int>>
-#define vp vector<ipair>
 #define mp make_pair
 #define mod 1000000007
 #define IOS                                                                    \
   std::ios::sync_with_stdio(false);                                            \
   cin.tie(NULL);                                                               \
   cout.tie(NULL);
+
 void init() {
-  int n;
-  cin >> n;
-  /*vi a(n);
-  fr(i,0,n)   cin>>a[i];
-  vector<int>dp(n+1);  // dp[i]- LIS up to length i
-  for(int i=0;i<n;i++){
-      dp[i]=1;
-      for(int j=0;j<i;j++){
-          if(a[i]>a[j])   dp[i]=max(dp[i],1+dp[j]);
-      }
+  int T;
+  cin >> T;
+  while (T--) {
+    string s;
+    cin >> s;
+    int n = s.size();
+    if (s.size() <= 2)
+      cout << s << endl;
+    else {
+      string temp;
+      temp += s[0];
+      for (int i = 2; i < n - 1; i += 2)
+        temp += s[i];
+      temp += s[n - 1];
+      cout << temp << endl;
+    }
   }
-  cout<<*max_element(all(dp))<<endl;*/
-  vector<int> dp;
-  for (int i = 0; i < n; i++) {
-    int x;
-    cin >> x;
-    auto it = lower_bound(all(dp), x);
-    if(it==dp.end())  dp.push_back(x);
-    else *it=x;
-  }
-  cout<<dp.size()<<endl;
 }
 int32_t main() {
   IOS;

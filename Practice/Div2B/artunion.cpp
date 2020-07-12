@@ -10,6 +10,7 @@ typedef std::pair<int, int> ipair;
 #define cnt_ones(x) __builtin_popcount(x)
 #define all(x) x.begin(), x.end()
 #define sz size()
+#define endl "\n"
 #define vi vector<int>
 #define vvi vector<vector<int>>
 #define vp vector<ipair>
@@ -20,27 +21,23 @@ typedef std::pair<int, int> ipair;
   cin.tie(NULL);                                                               \
   cout.tie(NULL);
 void init() {
-  int n;
-  cin >> n;
-  /*vi a(n);
-  fr(i,0,n)   cin>>a[i];
-  vector<int>dp(n+1);  // dp[i]- LIS up to length i
-  for(int i=0;i<n;i++){
-      dp[i]=1;
-      for(int j=0;j<i;j++){
-          if(a[i]>a[j])   dp[i]=max(dp[i],1+dp[j]);
-      }
-  }
-  cout<<*max_element(all(dp))<<endl;*/
-  vector<int> dp;
+  int m, n;
+  cin >> m >> n;
+  vector<vector<int>> painting(m, vector<int>(n));
+  for (int i = 0; i < m; i++)
+    for (int j = 0; j < n; j++)
+      cin >> painting[i][j];
+  vi finish(m);
   for (int i = 0; i < n; i++) {
-    int x;
-    cin >> x;
-    auto it = lower_bound(all(dp), x);
-    if(it==dp.end())  dp.push_back(x);
-    else *it=x;
+    int freetime = 0;
+    for (int j = 0; j < m; j++) {
+      int st = max(freetime, finish[j]);
+      finish[j] = st + painting[j][i];
+      freetime = finish[j];
+    }
   }
-  cout<<dp.size()<<endl;
+  for (auto x : finish)
+    cout << x << " ";
 }
 int32_t main() {
   IOS;

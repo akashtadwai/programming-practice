@@ -51,6 +51,7 @@ void init() {
       for (int j = 0; j < m; j++) {
         cin >> grid[i][j];
       }
+      
     }
     mx = 0;
     for (int i = 0; i < n; i++) {

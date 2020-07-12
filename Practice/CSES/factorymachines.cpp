@@ -20,27 +20,23 @@ typedef std::pair<int, int> ipair;
   cin.tie(NULL);                                                               \
   cout.tie(NULL);
 void init() {
-  int n;
-  cin >> n;
-  /*vi a(n);
-  fr(i,0,n)   cin>>a[i];
-  vector<int>dp(n+1);  // dp[i]- LIS up to length i
-  for(int i=0;i<n;i++){
-      dp[i]=1;
-      for(int j=0;j<i;j++){
-          if(a[i]>a[j])   dp[i]=max(dp[i],1+dp[j]);
-      }
+  int n, t;
+  cin >> n >> t;
+  vi time(n);
+  for (int &i : time)
+    cin >> i;
+  int lb = 0, rb = 1e18;
+  while (lb <= rb) {
+    int mid = lb + (rb - lb) / 2;
+    int s = 0;
+    for (int i = 0; i < n; i++)
+      s += min(mid / time[i], t);
+    if (s >= t)
+      rb = mid - 1;
+    else
+      lb = mid + 1;
   }
-  cout<<*max_element(all(dp))<<endl;*/
-  vector<int> dp;
-  for (int i = 0; i < n; i++) {
-    int x;
-    cin >> x;
-    auto it = lower_bound(all(dp), x);
-    if(it==dp.end())  dp.push_back(x);
-    else *it=x;
-  }
-  cout<<dp.size()<<endl;
+  cout << lb << endl;
 }
 int32_t main() {
   IOS;

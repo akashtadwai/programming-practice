@@ -20,27 +20,31 @@ typedef std::pair<int, int> ipair;
   cin.tie(NULL);                                                               \
   cout.tie(NULL);
 void init() {
-  int n;
-  cin >> n;
-  /*vi a(n);
-  fr(i,0,n)   cin>>a[i];
-  vector<int>dp(n+1);  // dp[i]- LIS up to length i
-  for(int i=0;i<n;i++){
-      dp[i]=1;
-      for(int j=0;j<i;j++){
-          if(a[i]>a[j])   dp[i]=max(dp[i],1+dp[j]);
-      }
-  }
-  cout<<*max_element(all(dp))<<endl;*/
-  vector<int> dp;
+  int n, m, k;
+  cin >> n >> m >> k;
+  vi a(m);
+  vector<pair<int, int>> b(n);
+  int p;
   for (int i = 0; i < n; i++) {
-    int x;
-    cin >> x;
-    auto it = lower_bound(all(dp), x);
-    if(it==dp.end())  dp.push_back(x);
-    else *it=x;
+    cin >> p;
+    b[i].first = max(0LL, p - k);
+    b[i].second = p + k;
   }
-  cout<<dp.size()<<endl;
+  sort(all(b));
+  for (int &i : a)
+    cin >> i;
+  sort(all(a));
+  int i = 0, j = 0;
+  int ans = 0;
+  while (i < m and j < n) {
+    if (a[i] < b[j].first)
+      i++;
+    else if (b[j].first <= a[i] and b[j].second >= a[i])
+      ans++, i++, j++;
+    else if (a[i] > b[j].second)
+      j++;
+  }
+  cout << ans << endl;
 }
 int32_t main() {
   IOS;

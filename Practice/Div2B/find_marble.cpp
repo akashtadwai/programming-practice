@@ -10,6 +10,7 @@ typedef std::pair<int, int> ipair;
 #define cnt_ones(x) __builtin_popcount(x)
 #define all(x) x.begin(), x.end()
 #define sz size()
+#define endl "\n"
 #define vi vector<int>
 #define vvi vector<vector<int>>
 #define vp vector<ipair>
@@ -20,27 +21,31 @@ typedef std::pair<int, int> ipair;
   cin.tie(NULL);                                                               \
   cout.tie(NULL);
 void init() {
-  int n;
-  cin >> n;
-  /*vi a(n);
-  fr(i,0,n)   cin>>a[i];
-  vector<int>dp(n+1);  // dp[i]- LIS up to length i
-  for(int i=0;i<n;i++){
-      dp[i]=1;
-      for(int j=0;j<i;j++){
-          if(a[i]>a[j])   dp[i]=max(dp[i],1+dp[j]);
-      }
-  }
-  cout<<*max_element(all(dp))<<endl;*/
-  vector<int> dp;
+  int n, s, t;
+  cin >> n >> s >> t;
+  vi p(n);
+  --s, --t;
   for (int i = 0; i < n; i++) {
-    int x;
-    cin >> x;
-    auto it = lower_bound(all(dp), x);
-    if(it==dp.end())  dp.push_back(x);
-    else *it=x;
+    cin >> p[i];
+    --p[i];
   }
-  cout<<dp.size()<<endl;
+  vector<int> vis(n);
+  bool ok = true;
+  int ans = 0;
+  while (1) {
+    if (s == t) {
+      break;
+    }
+    if (vis[s]) {
+      ok = false;
+      break;
+    } else {
+      vis[s] = 1;
+      s = p[s];
+    }
+    ans++;
+  }
+  ok ? cout << ans : cout << -1 << endl;
 }
 int32_t main() {
   IOS;

@@ -17,6 +17,7 @@ public:
       for (int j = 0; j < m; j++) {
         if (matrix[i][j] == 2) {
           q.push({i, j});
+
         } else if (matrix[i][j] == 1)
           fresh++;
       }

@@ -20,27 +20,27 @@ typedef std::pair<int, int> ipair;
   cin.tie(NULL);                                                               \
   cout.tie(NULL);
 void init() {
-  int n;
-  cin >> n;
-  /*vi a(n);
-  fr(i,0,n)   cin>>a[i];
-  vector<int>dp(n+1);  // dp[i]- LIS up to length i
-  for(int i=0;i<n;i++){
-      dp[i]=1;
-      for(int j=0;j<i;j++){
-          if(a[i]>a[j])   dp[i]=max(dp[i],1+dp[j]);
-      }
-  }
-  cout<<*max_element(all(dp))<<endl;*/
-  vector<int> dp;
+  int n, x;
+  cin >> n >> x;
+  vector<pair<int, int>> a;
   for (int i = 0; i < n; i++) {
-    int x;
-    cin >> x;
-    auto it = lower_bound(all(dp), x);
-    if(it==dp.end())  dp.push_back(x);
-    else *it=x;
+    int k;
+    cin >> k;
+    a.pb({k, i});
   }
-  cout<<dp.size()<<endl;
+  sort(all(a));
+  int i = 0, j = n - 1;
+  while (i < j) {
+    if (a[i].ff + a[j].ff == x) {
+      cout << a[i].ss + 1 << " " << a[j].ss + 1;
+      return;
+    } else if (a[i].ff + a[j].ff > x)
+      j--;
+    else
+      i++;
+  }
+  if (i == j)
+    cout << "IMPOSSIBLE";
 }
 int32_t main() {
   IOS;

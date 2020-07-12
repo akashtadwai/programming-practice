@@ -22,25 +22,21 @@ typedef std::pair<int, int> ipair;
 void init() {
   int n;
   cin >> n;
-  /*vi a(n);
-  fr(i,0,n)   cin>>a[i];
-  vector<int>dp(n+1);  // dp[i]- LIS up to length i
-  for(int i=0;i<n;i++){
-      dp[i]=1;
-      for(int j=0;j<i;j++){
-          if(a[i]>a[j])   dp[i]=max(dp[i],1+dp[j]);
-      }
-  }
-  cout<<*max_element(all(dp))<<endl;*/
-  vector<int> dp;
+  vi a(n);
+  for (int &i : a)
+    cin >> i;
+  vi modk(n + 1);
+  int s = 0;
   for (int i = 0; i < n; i++) {
-    int x;
-    cin >> x;
-    auto it = lower_bound(all(dp), x);
-    if(it==dp.end())  dp.push_back(x);
-    else *it=x;
+    s += a[i];
+    modk[((s % n) + n) % n]++;
   }
-  cout<<dp.size()<<endl;
+  int ans = 0;
+  for (int x : modk) {
+    if (x > 1)
+      ans += (x * (x - 1)) / 2;
+  }
+  cout << ans + modk[0];
 }
 int32_t main() {
   IOS;

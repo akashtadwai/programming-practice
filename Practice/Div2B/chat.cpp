@@ -10,6 +10,7 @@ typedef std::pair<int, int> ipair;
 #define cnt_ones(x) __builtin_popcount(x)
 #define all(x) x.begin(), x.end()
 #define sz size()
+#define endl "\n"
 #define vi vector<int>
 #define vvi vector<vector<int>>
 #define vp vector<ipair>
@@ -19,28 +20,34 @@ typedef std::pair<int, int> ipair;
   std::ios::sync_with_stdio(false);                                            \
   cin.tie(NULL);                                                               \
   cout.tie(NULL);
+vector<int> a, b, c, d;
+bool isValid(int t) {
+  for (int i = 0; i < c.size(); i++) {
+    for (int j = 0; j < a.size(); j++) {
+      if ((c[i] + t >= a[j] and c[i] + t <= b[j]) or
+          (d[i] + t >= a[j] and d[i] + t <= b[j]) or
+          (c[i] + t <= a[j] and d[i] + t >= b[j]))
+        return true;
+    }
+  }
+  return false;
+}
 void init() {
-  int n;
-  cin >> n;
-  /*vi a(n);
-  fr(i,0,n)   cin>>a[i];
-  vector<int>dp(n+1);  // dp[i]- LIS up to length i
-  for(int i=0;i<n;i++){
-      dp[i]=1;
-      for(int j=0;j<i;j++){
-          if(a[i]>a[j])   dp[i]=max(dp[i],1+dp[j]);
-      }
+  int p, q, l, r;
+  cin >> p >> q >> l >> r;
+  int ans = 0;
+  a.resize(p), b.resize(p);
+  for (int i = 0; i < p; i++)
+    cin >> a[i] >> b[i];
+  c.resize(q), d.resize(q);
+  for (int i = 0; i < q; i++)
+    cin >> c[i] >> d[i];
+
+  for (int i = l; i <= r; i++) {
+    if (isValid(i))
+      ans++;
   }
-  cout<<*max_element(all(dp))<<endl;*/
-  vector<int> dp;
-  for (int i = 0; i < n; i++) {
-    int x;
-    cin >> x;
-    auto it = lower_bound(all(dp), x);
-    if(it==dp.end())  dp.push_back(x);
-    else *it=x;
-  }
-  cout<<dp.size()<<endl;
+  cout << ans << endl;
 }
 int32_t main() {
   IOS;

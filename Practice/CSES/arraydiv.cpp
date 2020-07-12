@@ -19,28 +19,37 @@ typedef std::pair<int, int> ipair;
   std::ios::sync_with_stdio(false);                                            \
   cin.tie(NULL);                                                               \
   cout.tie(NULL);
+
+bool isvalid(vector<int> &a, int mid, int k) {
+  int sum = 0, cnt = 0;
+  for (int i = 0; i < a.size(); i++) {
+    if (a[i] > mid)
+      return false;
+    sum += a[i];
+    if (sum > mid) {
+      cnt++;
+      sum = a[i];
+    }
+  }
+  if (++cnt <= k)
+    return true;
+  return false;
+}
 void init() {
-  int n;
-  cin >> n;
-  /*vi a(n);
-  fr(i,0,n)   cin>>a[i];
-  vector<int>dp(n+1);  // dp[i]- LIS up to length i
-  for(int i=0;i<n;i++){
-      dp[i]=1;
-      for(int j=0;j<i;j++){
-          if(a[i]>a[j])   dp[i]=max(dp[i],1+dp[j]);
-      }
+  int n, k;
+  cin >> n >> k;
+  vi a(n);
+  for (int &i : a)
+    cin >> i;
+  int lb = 1, rb = accumulate(all(a), 0LL);
+  while (lb < rb) {
+    int mid = lb + (rb - lb) / 2;
+    if (isvalid(a, mid, k))
+      rb = mid;
+    else
+      lb = mid + 1;
   }
-  cout<<*max_element(all(dp))<<endl;*/
-  vector<int> dp;
-  for (int i = 0; i < n; i++) {
-    int x;
-    cin >> x;
-    auto it = lower_bound(all(dp), x);
-    if(it==dp.end())  dp.push_back(x);
-    else *it=x;
-  }
-  cout<<dp.size()<<endl;
+  cout << lb << endl;
 }
 int32_t main() {
   IOS;

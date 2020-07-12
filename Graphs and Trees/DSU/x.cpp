@@ -19,28 +19,46 @@ typedef std::pair<int, int> ipair;
   std::ios::sync_with_stdio(false);                                            \
   cin.tie(NULL);                                                               \
   cout.tie(NULL);
+vector<int> par, size, a;
+void make_set(int v) {
+  par[v] = v;
+  size[v] = a[v];
+}
+int find_set(int u) {
+  if (par[u] == u)
+    return u;
+  return par[u] = find_set(par[u]);
+}
+void union_sets(int a, int b) {
+  a = find_set(a);
+  b = find_set(b);
+  if (a != b) {
+    if (size[a] < size[b])
+      swap(a, b);
+    par[b] = a;
+    size[a] += size[b];
+  }
+}
 void init() {
-  int n;
-  cin >> n;
-  /*vi a(n);
-  fr(i,0,n)   cin>>a[i];
-  vector<int>dp(n+1);  // dp[i]- LIS up to length i
-  for(int i=0;i<n;i++){
-      dp[i]=1;
-      for(int j=0;j<i;j++){
-          if(a[i]>a[j])   dp[i]=max(dp[i],1+dp[j]);
-      }
-  }
-  cout<<*max_element(all(dp))<<endl;*/
-  vector<int> dp;
+  int n, q;
+  cin >> n >> q;
+  a.resize(n);
+  par.resize(n);
+  size.resize(n);
   for (int i = 0; i < n; i++) {
-    int x;
-    cin >> x;
-    auto it = lower_bound(all(dp), x);
-    if(it==dp.end())  dp.push_back(x);
-    else *it=x;
+    cin >> a[i];
+    make_set(i);
   }
-  cout<<dp.size()<<endl;
+
+  int l, r;
+  int mx = *max_element(all(size));
+  while (q--) {
+    cin >> l >> r;
+    --l, --r;
+    union_sets(l, r);
+    mx = max({mx, size[find_set(l)], size[find_set(r)]});
+    cout << mx << endl;
+  }
 }
 int32_t main() {
   IOS;

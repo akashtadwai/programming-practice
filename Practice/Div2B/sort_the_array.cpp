@@ -9,10 +9,6 @@ typedef std::pair<int, int> ipair;
 #define fr(i, j, a) for (int i = j; i < a; i++)
 #define cnt_ones(x) __builtin_popcount(x)
 #define all(x) x.begin(), x.end()
-#define sz size()
-#define vi vector<int>
-#define vvi vector<vector<int>>
-#define vp vector<ipair>
 #define mp make_pair
 #define mod 1000000007
 #define IOS                                                                    \
@@ -22,25 +18,28 @@ typedef std::pair<int, int> ipair;
 void init() {
   int n;
   cin >> n;
-  /*vi a(n);
-  fr(i,0,n)   cin>>a[i];
-  vector<int>dp(n+1);  // dp[i]- LIS up to length i
-  for(int i=0;i<n;i++){
-      dp[i]=1;
-      for(int j=0;j<i;j++){
-          if(a[i]>a[j])   dp[i]=max(dp[i],1+dp[j]);
-      }
+  vector<int> a(n);
+  for (int &i : a)
+    cin >> i;
+  int i = 0;
+  int x = 0;
+  int l = 0, li = 0, r = 0;
+  while (i < n) {
+    bool ok = false;
+    li = i;
+    while (i < n - 1 and a[i] > a[i + 1])
+      l = li, ok = true, i++;
+    if (ok)
+      x++, r = i, reverse(a.begin() + li, a.begin() + r + 1);
+    i++;
+    if (x > 1)
+      break;
   }
-  cout<<*max_element(all(dp))<<endl;*/
-  vector<int> dp;
-  for (int i = 0; i < n; i++) {
-    int x;
-    cin >> x;
-    auto it = lower_bound(all(dp), x);
-    if(it==dp.end())  dp.push_back(x);
-    else *it=x;
+  if (x > 1 or !is_sorted(all(a)))
+    cout << "no";
+  else {
+    cout << "yes" << endl << l + 1 << " " << r + 1;
   }
-  cout<<dp.size()<<endl;
 }
 int32_t main() {
   IOS;

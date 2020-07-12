@@ -24,7 +24,9 @@ void init() {
   int T;
   cin >> T;
   while (T--) {
+      
   }
+  
 }
 int32_t main() {
   IOS;

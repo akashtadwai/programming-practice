@@ -1,3 +1,5 @@
+// https://atcoder.jp/contests/dp/tasks/dp_n
+
 #include <bits/stdc++.h>
 using namespace std;
 typedef std::pair<int, int> ipair;
@@ -19,28 +21,40 @@ typedef std::pair<int, int> ipair;
   std::ios::sync_with_stdio(false);                                            \
   cin.tie(NULL);                                                               \
   cout.tie(NULL);
+int solve(int a, int b) {
+  int cnt = 0;
+  if (a == b)
+    return 0;
+  if (a > b) {
+    while (a > b and a > 0 and !(a & 1)) {
+      a = a >> 1;
+      cnt++;
+      //   cout << a << " " << b << endl;
+      if (a == b)
+        return min({cnt, (cnt / 3) + (cnt % 3), (cnt / 2) + cnt % 2});
+    }
+  }
+ else {
+    cnt = 0;
+    while (a < b) {
+      a = a << 1;
+      cnt++;
+      //   cout << a << " " << b << " "<<cnt<<endl;
+      if (a == b)
+        return min({cnt, (cnt / 3) + (cnt % 3), (cnt / 2) + cnt % 2});
+    }
+  }
+  return -1;
+}
 void init() {
-  int n;
-  cin >> n;
-  /*vi a(n);
-  fr(i,0,n)   cin>>a[i];
-  vector<int>dp(n+1);  // dp[i]- LIS up to length i
-  for(int i=0;i<n;i++){
-      dp[i]=1;
-      for(int j=0;j<i;j++){
-          if(a[i]>a[j])   dp[i]=max(dp[i],1+dp[j]);
-      }
-  }
-  cout<<*max_element(all(dp))<<endl;*/
-  vector<int> dp;
-  for (int i = 0; i < n; i++) {
-    int x;
-    cin >> x;
-    auto it = lower_bound(all(dp), x);
-    if(it==dp.end())  dp.push_back(x);
-    else *it=x;
-  }
-  cout<<dp.size()<<endl;
+  /*int T;
+  cin >> T;
+  while (T--) {
+    int a, b;
+    cin >> a >> b;
+    cout << solve(a, b) << endl;
+  }*/
+  vector<pair<int,int> > a{{1,2},{2,4},},
 }
 int32_t main() {
   IOS;
